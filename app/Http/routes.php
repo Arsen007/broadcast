@@ -11,6 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', ['uses' => 'Channel@index']);
+
+Route::get('/channel/{channel_slug}', ['uses' => 'Channel@view_channel']);
+
