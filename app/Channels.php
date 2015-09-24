@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 class Channels extends Model
 {
     protected $table = 'channels';
-    protected $fillable = ['title', 'slug'];
+    protected $fillable = ['title', 'slug','key','allowed_ips'];
 
     public static function getChannel($slug)
     {
