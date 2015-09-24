@@ -18,7 +18,7 @@ class ChannelsTable extends Migration
             $table->string('slug',36);
             $table->string('key',36);
             $table->text('allowed_ips');
-            $table->timestamp('created_at');
+            $table->timestamps();
         });
     }
 

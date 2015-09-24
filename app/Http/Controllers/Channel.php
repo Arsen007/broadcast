@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Channels;
+use App\Http\Requests\CreateNewChannelRequest;
+use App\Http\Requests\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
+use Symfony\Component\HttpKernel\Tests\Config\EnvParametersResourceTest;
 
 class Channel extends Controller
 {
@@ -21,5 +26,18 @@ class Channel extends Controller
         return view('channel.view',[
             'channel' => $channel
         ]);
+    }
+
+    public function create_channel(){
+        return view('channel.create',[
+//            'channel' => $channel
+        ]);
+    }
+
+    public function store(CreateNewChannelRequest $request){
+        Channels::create($request->all());
+        Channels::createRtmpServer($request->slug);
+        return redirect(url('/'));
+
     }
 }

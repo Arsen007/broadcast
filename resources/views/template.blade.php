@@ -22,6 +22,12 @@
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="{{url('js/jquery.js')}}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{url('js/bootstrap.min.js')}}"></script>
     <![endif]-->
 
 </head>
@@ -95,11 +101,9 @@
     </div>
     <!-- /.container -->
 
-    <!-- jQuery -->
-    <script src="{{url('js/jquery.js')}}"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="{{url('js/bootstrap.min.js')}}"></script>
+    <!-- Custom scripts -->
+    <script src="{{url('js/script.js')}}"></script>
 
 </body>
 

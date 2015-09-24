@@ -13,5 +13,6 @@
 
 Route::get('/', ['uses' => 'Channel@index']);
 
-Route::get('/channel/{channel_slug}', ['uses' => 'Channel@view_channel']);
-
+Route::any('/channel/create', ['uses' => 'Channel@create_channel']);
+Route::post('/channel/store', ['uses' => 'Channel@store','as' => 'store']);
+Route::get('/channel/watch/{channel_slug}', ['uses' => 'Channel@view_channel']);
