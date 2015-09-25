@@ -52,7 +52,10 @@
     $packedJsCode = $packer->pack();
     ?>
     <script src="{{url('jwplayer/jwplayer.js')}}"></script>
-    <div id="container">Loading the player ...</div>
+    <div class="col-lg-12">
+        <div id="container" class="col-lg-7">Loading the player ...</div>
+        <div class=""><h4>FMS URL: rtmp://arsen-sargsyan.info/{{$channel->key}}</h4></div>
+    </div>
     <script type="text/javascript">
         <?=$packedJsCode?>
     </script>
