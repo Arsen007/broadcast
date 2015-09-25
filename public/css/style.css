@@ -1,0 +1,8 @@
+.ip_addresses_container input{
+    width: 70%;
+    float: left;
+}
+.ip_addresses_container button{
+    float: left;
+    margin-left: 2px;
+}

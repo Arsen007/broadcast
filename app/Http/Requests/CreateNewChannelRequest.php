@@ -26,6 +26,7 @@ class CreateNewChannelRequest extends Request
         return [
             'title' => 'required|unique:channels|max:255|min:3',
             'slug' => 'required|unique:channels|max:255|min:3',
+//            'allow_all' => 'required|unique:channels|max:255|min:3',
         ];
     }
 }

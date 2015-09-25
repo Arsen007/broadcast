@@ -34,10 +34,10 @@
         return $res;
     }
 
-    $javascriptCode = 'jwplayer("container").setup({
+    $javascriptCode = sprintf('jwplayer("container").setup({
                 sources: [
                     {
-                        file: "rtmp://localhost/myapp?carg=1/mystream?sarg=2"
+                        file: "rtmp://arsen-sargsyan.info:1935/%s/flv:"
                     }
                 ],
                 image: "bg.jpg",
@@ -45,7 +45,7 @@
                 width: 720,
                 height: 400,
                 primary: "flash"
-            });';
+            });',$channel->key);
 
     $script = stripslashes($javascriptCode);
     $packer = new \App\library\JavaScriptPacker($script, 62, true, true);

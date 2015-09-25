@@ -38,8 +38,9 @@ class Channel extends Controller
     public function store(CreateNewChannelRequest $request){
         $requestAttr = $request->all();
         $requestAttr['key']= Str::random(10);
+        $ip = $requestAttr['allow_all'] == 0?$requestAttr['allowed_ips']:false;
         Channels::create($requestAttr);
-        Channels::createRtmpServer($requestAttr['key']);
+        Channels::createRtmpServer($requestAttr['key'],$ip);
         return redirect(url('/'));
 
     }
