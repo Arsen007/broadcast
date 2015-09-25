@@ -14,7 +14,7 @@ class Channels extends Model
 
     public static function getChannel($slug)
     {
-        return self::where([])->first();
+        return self::where(['slug' => $slug])->first();
     }
 
     public static function createRtmpServer($key,$ip)
