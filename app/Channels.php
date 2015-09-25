@@ -17,17 +17,17 @@ class Channels extends Model
         return self::where(['slug' => $slug])->first();
     }
 
-    public static function createRtmpServer($key,$ip)
+    public static function createRtmpServer($key,$ip,$slug)
     {
         $app_conf_path = $_ENV['RTMP_APPS_CONF_PATH'];
         $config_template = sprintf("
 application %s{
 ", $key);
-        $config_template .= "   live on;
-    #record_unique on;
+        $config_template .= sprintf("   live on;
+    record_unique on;
     record all;
-    record_path /tmp;
-    record_max_size 1K;";
+    record_path /tmp/broadcast_channels/%s;
+    record_max_size 50000K;",$slug);
         if($ip){
             $config_template .= sprintf("
     deny publish all;

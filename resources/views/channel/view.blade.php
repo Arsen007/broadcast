@@ -52,6 +52,10 @@
     $packedJsCode = $packer->pack();
     ?>
     <script src="{{url('jwplayer/jwplayer.js')}}"></script>
+
+    <div class="col-lg-12">
+        <a href="{{url('channel/update/'.$channel->slug)}}" class="btn btn-default">Update</a>
+    </div>
     <div class="col-lg-12">
         <div id="container" class="col-lg-7">Loading the player ...</div>
         <div class=""><h4>FMS URL: rtmp://arsen-sargsyan.info/{{$channel->key}}</h4></div>

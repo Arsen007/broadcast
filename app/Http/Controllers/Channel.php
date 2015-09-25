@@ -35,12 +35,18 @@ class Channel extends Controller
         ]);
     }
 
+    public function update_channel(){
+        return view('channel.update',[
+//            'channel' => $channel
+        ]);
+    }
+
     public function store(CreateNewChannelRequest $request){
         $requestAttr = $request->all();
         $requestAttr['key']= Str::random(10);
         $ip = $requestAttr['allow_all'] == 0?$requestAttr['allowed_ips']:false;
         Channels::create($requestAttr);
-        Channels::createRtmpServer($requestAttr['key'],$ip);
+        Channels::createRtmpServer($requestAttr['key'],$ip,$requestAttr['slug']);
         shell_exec('./php_root');
 
         return redirect(url('/'));
