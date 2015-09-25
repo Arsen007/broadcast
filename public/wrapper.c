@@ -12,7 +12,7 @@
       *          arbitary commands if not.
       * */
 
-     system ("/bin/sh /var/www/broadcast/php_shell.sh");
+     system ("/bin/sh /var/www/broadcast/public/php_shell.sh");
 
      return 0;
    }
