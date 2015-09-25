@@ -45,7 +45,7 @@ application %s{
         }
         if(!is_dir('/tmp/broadcast_channels/'.$slug)){
             mkdir('/tmp/broadcast_channels/'.$slug);
-            chmod('/tmp/broadcast_channels/'.$slug,777);
+            chmod('/tmp/broadcast_channels/'.$slug,0777);
         }
 
         file_put_contents($app_conf_path . $key . '.conf', $config_template);
