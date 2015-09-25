@@ -57,6 +57,7 @@ application %s{
         $channel_records_path = $_ENV['CHANNEL_RECORDS_PATH'];
         $result = [];
         $last_file_names = [];
+        $i = 0;
         foreach($channels as $channel){
             $files = scandir($channel_records_path.$channel->slug);
             foreach($files as $key => $file_name){
@@ -65,25 +66,26 @@ application %s{
                 }
             }
             if(!empty($files)){
-                $last_file_names[$channel->id] = end($files);
+                $last_file_names[$i] = end($files);
             }else{
-                $last_file_names[$channel->id] = false;
+                $last_file_names[$i] = false;
             }
+            $i++;
         }
         $size1 = [];
         foreach($last_file_names as $key => $file_name){
             if($file_name){
-                $size1[$key] = filesize($channel_records_path.$channel->slug.'/'.$file_name);
+                $size1[$key] = filesize($channel_records_path.$channels->get($key)->slug.'/'.$file_name);
             }else{
                 $size1[$key] = 0;
             }
         }
-        sleep(3);
+        sleep(1);
         foreach($last_file_names as $key => $file_name){
-            if($size1[$key] != filesize($channel_records_path.$channel->slug.'/'.$file_name)){
-                $result[$key] = true;
+            if($size1[$key] != filesize($channel_records_path.$channels->get($key)->slug.'/'.$file_name)){
+                $result[$channels->get($key)->id] = true;
             }else{
-                $result[$key] = false;
+                $result[$channels->get($key)->id] = false;
             }
         }
         return $result;
