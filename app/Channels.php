@@ -74,7 +74,7 @@ application %s{
         }
         $size1 = [];
         foreach($last_file_names as $key => $file_name){
-            if($file_name){
+            if(strlen($file_name) > 0){
                 $size1[$key] = filesize($channel_records_path.$channels->get($key)->slug.'/'.$file_name);
             }else{
                 $size1[$key] = 0;
