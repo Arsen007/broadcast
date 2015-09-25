@@ -40,6 +40,12 @@ application %s{
         }
         $config_template .= "
 }";
+        if(!is_dir('/tmp/broadcast_channels')){
+            mkdir('/tmp/broadcast_channels');
+        }
+        if(!is_dir('/tmp/broadcast_channels/'.$slug)){
+            mkdir('/tmp/broadcast_channels/'.$slug);
+        }
 
         file_put_contents($app_conf_path . $key . '.conf', $config_template);
     }
