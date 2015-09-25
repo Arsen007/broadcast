@@ -75,7 +75,7 @@ application %s{
             if($file_name){
                 $size1[$key] = filesize($channel_records_path.$channel->slug.'/'.$file_name);
             }else{
-                $size1[$key] = 0;
+                $result[$key] = false;
             }
         }
         sleep(2);
