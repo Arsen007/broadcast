@@ -82,7 +82,7 @@ application %s{
         }
         sleep(1);
         foreach($last_file_names as $key => $file_name){
-            if($size1[$key] != filesize($channel_records_path.$channels->get($key)->slug.'/'.$file_name)){
+            if($file_name && $size1[$key] != filesize($channel_records_path.$channels->get($key)->slug.'/'.$file_name)){
                 $result[$channels->get($key)->id] = true;
             }else{
                 $result[$channels->get($key)->id] = false;
