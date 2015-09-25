@@ -17,7 +17,6 @@
                 $.ajax({
                     url: '{{url('channel/status')}}',
                     data: {},
-                    async: false,
                     type: "get",
                     dataType: "json",
                     success: function (data) {

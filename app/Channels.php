@@ -78,7 +78,7 @@ application %s{
                 $size1[$key] = 0;
             }
         }
-        sleep(2);
+        sleep(3);
         foreach($last_file_names as $key => $file_name){
             if($size1[$key] != filesize($channel_records_path.$channel->slug.'/'.$file_name)){
                 $result[$key] = true;
