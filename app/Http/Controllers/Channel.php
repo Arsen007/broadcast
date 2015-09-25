@@ -8,6 +8,7 @@ use App\Http\Requests\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Tests\Config\EnvParametersResourceTest;
 
 class Channel extends Controller
@@ -51,5 +52,10 @@ class Channel extends Controller
 
         return redirect(url('/'));
 
+    }
+
+    public function getStatusesAjax(){
+        $statuses = Channels::getLiveStatuses();
+        return json_encode($statuses);
     }
 }

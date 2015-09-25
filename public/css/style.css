@@ -6,3 +6,20 @@
     float: left;
     margin-left: 2px;
 }
+
+.live-indicate{
+    position: absolute;
+    color: #5CD05C;
+    border-radius: 7px;
+    padding: 0px 6px;
+    display: block;
+    width: 2px;
+    height: 12px;
+}
+.live-indicate.online{
+    background-color: #0e9e01;
+}
+
+.live-indicate.offline{
+    background-color: #9E1919;
+}

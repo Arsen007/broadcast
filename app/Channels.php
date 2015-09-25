@@ -40,14 +40,52 @@ application %s{
         }
         $config_template .= "
 }";
-        if(!is_dir('/tmp/broadcast_channels')){
-            mkdir('/tmp/broadcast_channels');
+        $channel_records_path = $_ENV['CHANNEL_RECORDS_PATH'];
+        if(!is_dir($channel_records_path)){
+            mkdir($channel_records_path);
         }
-        if(!is_dir('/tmp/broadcast_channels/'.$slug)){
-            mkdir('/tmp/broadcast_channels/'.$slug);
-            chmod('/tmp/broadcast_channels/'.$slug,0777);
+        if(!is_dir($channel_records_path.$slug)){
+            mkdir($channel_records_path.$slug);
+            chmod($channel_records_path.$slug,0777);
         }
 
         file_put_contents($app_conf_path . $key . '.conf', $config_template);
+    }
+
+    public static function getLiveStatuses(){
+        $channels = self::all();
+        $channel_records_path = $_ENV['CHANNEL_RECORDS_PATH'];
+        $result = [];
+        $last_file_names = [];
+        foreach($channels as $channel){
+            $files = scandir($channel_records_path.$channel->slug);
+            foreach($files as $key => $file_name){
+                if($file_name == '.' || $file_name == '..'){
+                    unset($files[$key]);
+                }
+            }
+            if(!empty($files)){
+                $last_file_names[$channel->id] = end($files);
+            }else{
+                $last_file_names[$channel->id] = false;
+            }
+        }
+        $size1 = [];
+        foreach($last_file_names as $key => $file_name){
+            if($file_name){
+                $size1[$key] = filesize($channel_records_path.$channel->slug.'/'.$file_name);
+            }else{
+                $size1[$key] = 0;
+            }
+        }
+        sleep(2);
+        foreach($last_file_names as $key => $file_name){
+            if($size1[$key] != filesize($channel_records_path.$channel->slug.'/'.$file_name)){
+                $result[$key] = true;
+            }else{
+                $result[$key] = false;
+            }
+        }
+        return $result;
     }
 }
