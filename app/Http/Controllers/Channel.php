@@ -41,6 +41,7 @@ class Channel extends Controller
         $ip = $requestAttr['allow_all'] == 0?$requestAttr['allowed_ips']:false;
         Channels::create($requestAttr);
         Channels::createRtmpServer($requestAttr['key'],$ip);
+        exec('/usr/local/nginx/sbin/nginx -s reload');
         return redirect(url('/'));
 
     }
