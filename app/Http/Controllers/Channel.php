@@ -71,6 +71,16 @@ class Channel extends Controller
 
     }
 
+
+    public function delete($id){
+        $channel = Channels::find($id);
+        Channels::destroy($id);
+        Channels::removeRtmpServer($channel->key);
+        shell_exec('./php_root');
+        return redirect(url('/'));
+
+    }
+
     public function getStatusesAjax(){
         $statuses = Channels::getLiveStatuses();
         return json_encode($statuses);

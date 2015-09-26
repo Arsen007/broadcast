@@ -52,6 +52,19 @@ application %s{
         file_put_contents($app_conf_path . $key . '.conf', $config_template);
     }
 
+    public static function removeRtmpServer($key)
+    {
+        $channel_records_path = $_ENV['CHANNEL_RECORDS_PATH'];
+        $app_conf_path = $_ENV['RTMP_APPS_CONF_PATH'];
+        if(is_dir($channel_records_path.$key)){
+            File::deleteDirectory($channel_records_path.$key);
+        }
+        if(File::exists($app_conf_path . $key . '.conf')){
+            File::delete($app_conf_path . $key . '.conf');
+        }
+
+    }
+
     public static function getLiveStatuses(){
         $channels = self::all();
         $channel_records_path = $_ENV['CHANNEL_RECORDS_PATH'];

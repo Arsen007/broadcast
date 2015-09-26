@@ -16,6 +16,7 @@ Route::get('/', ['uses' => 'Channel@index']);
 Route::any('/channel/create', ['uses' => 'Channel@create_channel']);
 Route::post('/channel/store', ['uses' => 'Channel@store','as' => 'store']);
 Route::post('/channel/update', ['uses' => 'Channel@update','as' => 'update']);
+Route::get('/channel/delete/{id}', ['uses' => 'Channel@delete']);
 Route::get('/channel/watch/{channel_slug}', ['uses' => 'Channel@view_channel']);
 Route::get('/channel/update/{channel_slug}', ['uses' => 'Channel@update_channel']);
 Route::get('/channel/status', ['uses' => 'Channel@getStatusesAjax']);
