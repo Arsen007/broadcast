@@ -72,22 +72,15 @@ application %s{
             }
             $i++;
         }
-        $size1 = [];
         foreach($last_file_names as $key => $file_name){
             if(strlen($file_name) > 0){
-                $size1[$key] = filesize($channel_records_path.$channels->get($key)->key.'/'.$file_name);
-            }else{
-                $size1[$key] = 0;
-            }
-        }
-        sleep(1);
-        foreach($last_file_names as $key => $file_name){
-            if($file_name && $size1[$key] != filesize($channel_records_path.$channels->get($key)->key.'/'.$file_name)){
-                $result[$channels->get($key)->id] = true;
+                $result[$channels->get($key)->id] = (time() - filemtime($channel_records_path.$channels->get($key)->key.'/'.$file_name)) < 5;
             }else{
                 $result[$channels->get($key)->id] = false;
             }
         }
+
+
         return $result;
     }
 }
