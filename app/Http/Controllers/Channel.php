@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Channels;
 use App\Http\Requests\CreateNewChannelRequest;
 use App\Http\Requests\Request;
+use App\Http\Requests\UpdateChannelRequest;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
@@ -36,9 +37,10 @@ class Channel extends Controller
         ]);
     }
 
-    public function update_channel(){
+    public function update_channel($channel_slug){
+        $channel = Channels::getChannel($channel_slug);
         return view('channel.update',[
-//            'channel' => $channel
+            'channel' => $channel
         ]);
     }
 
@@ -48,6 +50,21 @@ class Channel extends Controller
         $ip = $requestAttr['allow_all'] == 0?$requestAttr['allowed_ips']:false;
         Channels::create($requestAttr);
         Channels::createRtmpServer($requestAttr['key'],$ip,$requestAttr['slug']);
+        shell_exec('./php_root');
+
+        return redirect(url('/'));
+
+    }
+    public function update(UpdateChannelRequest $request){
+        $requestAttr = $request->all();
+        $ip = $requestAttr['allow_all'] == 0?$requestAttr['allowed_ips']:false;
+        $channel = Channels::find($requestAttr['id']);
+            $channel->title = $requestAttr['title'];
+            $channel->slug = $requestAttr['slug'];
+            $channel->allow_all = $requestAttr['allow_all'];
+            $channel->allowed_ips = $requestAttr['allowed_ips'];
+            $channel->save();
+        Channels::createRtmpServer($channel->key,$ip,$requestAttr['slug']);
         shell_exec('./php_root');
 
         return redirect(url('/'));

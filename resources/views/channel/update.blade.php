@@ -6,16 +6,16 @@
         <a href="{{url('')}}" class="btn btn-default">Channel List</a>
     </div>
     <div class="col-lg-6">
-        {!! Form::open([ 'route' => 'store' ]) !!}
-
+        {!! Form::open([ 'route' => 'update' ]) !!}
+        {!!  Form::hidden('id', $channel->id) !!}
         <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
             {!! Form::label('title', 'Title') !!}
-            {!!   Form::text('title', null, ['class' => 'form-control']) !!}
+            {!!   Form::text('title', $channel->title, ['class' => 'form-control']) !!}
             {!!  $errors->first('title', '<p class="help-block">:message</p>') !!}
         </div>
         <div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
             {!! Form::label('slug', 'Slug') !!}
-            {!!   Form::text('slug', null, ['class' => 'form-control']) !!}
+            {!!   Form::text('slug', $channel->slug, ['class' => 'form-control']) !!}
             {!!  $errors->first('slug', '<p class="help-block">:message</p>') !!}
         </div>
         <div class="form-group{{ $errors->has('allow_all') ? ' has-error' : '' }}">
@@ -23,12 +23,12 @@
 
             <div class="col-lg-offset-1">
                 {!! Form::label('allow_all', 'All') !!}
-                {!!   Form::radio('allow_all', 1, ['class' => 'form-control']) !!}<br>
+                {!!   Form::radio('allow_all', 1, $channel->allow_all == 1,[]) !!}<br>
                 {!! Form::label('allow_all', 'Ip') !!}
-                {!!   Form::radio('allow_all', 0, ['class' => 'form-control']) !!}
+                {!!   Form::radio('allow_all', 0, $channel->allow_all == 0,[]) !!}
                 {!!  $errors->first('allow_all', '<p class="help-block">:message</p>') !!}
                     <div class="col-lg-12 ip_container">
-                        {!!   Form::text('allowed_ips', null, ['class' => 'form-control','placeholder' => 'IP address (155.84.55.1)']) !!}
+                        {!!   Form::text('allowed_ips', $channel->allowed_ips, ['class' => 'form-control','placeholder' => 'IP address (155.84.55.1)']) !!}
                         {!!  $errors->first('allowed_ips', '<p class="help-block">:message</p>') !!}
                     </div>
                 </div>

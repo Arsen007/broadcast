@@ -27,7 +27,7 @@ application %s{
     record_unique on;
     record all;
     record_path /tmp/broadcast_channels/%s;
-    record_max_size 50000K;",$slug);
+    record_max_size 50000K;",$key);
         if($ip){
             $config_template .= sprintf("
     deny publish all;
@@ -44,9 +44,9 @@ application %s{
         if(!is_dir($channel_records_path)){
             mkdir($channel_records_path);
         }
-        if(!is_dir($channel_records_path.$slug)){
-            mkdir($channel_records_path.$slug);
-            chmod($channel_records_path.$slug,0777);
+        if(!is_dir($channel_records_path.$key)){
+            mkdir($channel_records_path.$key);
+            chmod($channel_records_path.$key,0777);
         }
 
         file_put_contents($app_conf_path . $key . '.conf', $config_template);
@@ -59,7 +59,7 @@ application %s{
         $last_file_names = [];
         $i = 0;
         foreach($channels as $channel){
-            $files = scandir($channel_records_path.$channel->slug);
+            $files = scandir($channel_records_path.$channel->key);
             foreach($files as $key => $file_name){
                 if($file_name == '.' || $file_name == '..'){
                     unset($files[$key]);
@@ -75,14 +75,14 @@ application %s{
         $size1 = [];
         foreach($last_file_names as $key => $file_name){
             if(strlen($file_name) > 0){
-                $size1[$key] = filesize($channel_records_path.$channels->get($key)->slug.'/'.$file_name);
+                $size1[$key] = filesize($channel_records_path.$channels->get($key)->key.'/'.$file_name);
             }else{
                 $size1[$key] = 0;
             }
         }
         sleep(1);
         foreach($last_file_names as $key => $file_name){
-            if($file_name && $size1[$key] != filesize($channel_records_path.$channels->get($key)->slug.'/'.$file_name)){
+            if($file_name && $size1[$key] != filesize($channel_records_path.$channels->get($key)->key.'/'.$file_name)){
                 $result[$channels->get($key)->id] = true;
             }else{
                 $result[$channels->get($key)->id] = false;
