@@ -23,9 +23,9 @@
 
             <div class="col-lg-offset-1">
                 {!! Form::label('allow_all', 'All') !!}
-                {!!   Form::radio('allow_all', 1, ['class' => 'form-control']) !!}<br>
+                {!!   Form::radio('allow_all', 1, true) !!}<br>
                 {!! Form::label('allow_all', 'Ip') !!}
-                {!!   Form::radio('allow_all', 0, ['class' => 'form-control']) !!}
+                {!!   Form::radio('allow_all', 0) !!}
                 {!!  $errors->first('allow_all', '<p class="help-block">:message</p>') !!}
                     <div class="col-lg-12 ip_container">
                         {!!   Form::text('allowed_ips', null, ['class' => 'form-control','placeholder' => 'IP address (155.84.55.1)']) !!}
