@@ -38,7 +38,7 @@ class Channel extends Controller
         $channel = Channels::getChannel($channel_slug);
         return view('channel.view_video',[
             'channel' => $channel,
-            'file_name' => $file_name,
+            'file_name' => urldecode($file_name),
         ]);
     }
 

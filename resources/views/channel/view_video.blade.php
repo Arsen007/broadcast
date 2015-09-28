@@ -37,7 +37,7 @@
     $javascriptCode = sprintf('jwplayer("container").setup({
                 sources: [
                     {
-                        file: "rtmp://arsen-sargsyan.info:1935/%s/flv:-%s"
+                        file: "rtmp://arsen-sargsyan.info:1935/%s/flv:%s"
                     }
                 ],
                 image: "bg.jpg",
