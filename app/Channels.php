@@ -28,7 +28,7 @@ application %s{
     record all;
     record_path /tmp/broadcast_channels/%s;
     play /tmp/broadcast_channels/%s;
-    record_max_size 50000K;",$key);
+    record_max_size 50000K;",$key,$key);
         if($ip){
             $config_template .= sprintf("
     deny publish all;
