@@ -18,5 +18,6 @@ Route::post('/channel/store', ['uses' => 'Channel@store','as' => 'store']);
 Route::post('/channel/update', ['uses' => 'Channel@update','as' => 'update']);
 Route::get('/channel/delete/{id}', ['uses' => 'Channel@delete']);
 Route::get('/channel/watch/{channel_slug}', ['uses' => 'Channel@view_channel']);
+Route::get('/video/{channel_slug}/{video}', ['uses' => 'Channel@view_video','as'=>'video']);
 Route::get('/channel/update/{channel_slug}', ['uses' => 'Channel@update_channel']);
 Route::get('/channel/status', ['uses' => 'Channel@getStatusesAjax']);

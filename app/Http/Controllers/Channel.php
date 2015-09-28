@@ -26,8 +26,19 @@ class Channel extends Controller
 
     public function view_channel($channel_slug){
         $channel = Channels::getChannel($channel_slug);
+        $records = Channels::getChannelRecords($channel_slug);
+
         return view('channel.view',[
-            'channel' => $channel
+            'channel' => $channel,
+            'records' => $records
+        ]);
+    }
+
+    public function view_video($channel_slug,$file_name){
+        $channel = Channels::getChannel($channel_slug);
+        return view('channel.view_video',[
+            'channel' => $channel,
+            'file_name' => $file_name,
         ]);
     }
 

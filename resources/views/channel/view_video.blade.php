@@ -1,5 +1,5 @@
 @extends('template')
-@section('title', 'Channel - '.$channel->title)
+@section('title', 'Video - '.$file_name)
 @section('content')
     <?php
     function escapeJavaScriptText($string)
@@ -37,7 +37,7 @@
     $javascriptCode = sprintf('jwplayer("container").setup({
                 sources: [
                     {
-                        file: "rtmp://arsen-sargsyan.info:1935/%s/flv:"
+                        file: "rtmp://arsen-sargsyan.info:1935/%s/flv:-%s"
                     }
                 ],
                 image: "bg.jpg",
@@ -45,7 +45,7 @@
                 width: 720,
                 height: 400,
                 primary: "flash"
-            });',$channel->key);
+            });',$channel->key,$file_name);
 
     $script = stripslashes($javascriptCode);
     $packer = new \App\library\JavaScriptPacker($script, 62, true, true);
@@ -54,24 +54,14 @@
     <script src="{{url('jwplayer/jwplayer.js')}}"></script>
 
     <div class="col-lg-12">
+        <a href="{{url('channel/watch/'.$channel->slug)}}" class="btn btn-default">Back to channel</a>
         <a href="{{url('channel/update/'.$channel->slug)}}" class="btn btn-default">Update</a>
         <a href="{{url('channel/delete/'.$channel->id)}}" class="btn btn-default">Delete</a>
     </div>
     <div class="col-lg-12">
         <div id="container" class="col-lg-7">Loading the player ...</div>
-        <div class=""><h4>FMS URL: rtmp://arsen-sargsyan.info/{{$channel->key}}</h4></div>
-    </div>
-
-    <div class="col-lg-12">
-        <h3>Records</h3>
-        @foreach ($records as $record)
-            <div class="col-md-3 portfolio-item">
-                <a href="{{url('video/'.$channel->slug.'/'.$record['name'])}}"><img class="img-responsive" src="/img/tv.png"></a>
-                <h3><a href="{{url('video/'.$channel->slug.'/'.$record['name'])}}">{{date('m-d-y H_i_s',$record['t'])}}</a></h3>
-            </div>
-        @endforeach
     </div>
     <script type="text/javascript">
-        <?=$packedJsCode?>
+        <?=$javascriptCode?>
     </script>
 @stop

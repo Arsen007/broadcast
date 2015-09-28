@@ -27,6 +27,7 @@ application %s{
     record_unique on;
     record all;
     record_path /tmp/broadcast_channels/%s;
+    play /tmp/broadcast_channels/%s;
     record_max_size 50000K;",$key);
         if($ip){
             $config_template .= sprintf("
@@ -94,6 +95,32 @@ application %s{
         }
 
 
+        return $result;
+    }
+
+    public static function getChannelRecordsPath($slug){
+        $channel_records_path = $_ENV['CHANNEL_RECORDS_PATH'];
+        $channel = self::where(['slug' => $slug])->first();
+        return $channel_records_path.$channel->key;
+    }
+
+    public static function getChannelRecords($slug){
+        $records_path = self::getChannelRecordsPath($slug);
+        $result = [];
+        if(is_dir($records_path)){
+            $files = scandir($records_path);
+            foreach($files as $file_name){
+                if($file_name == '.' || $file_name == '..'){
+                    continue;
+                }
+                $timestump = filemtime($records_path.'/'.$file_name);
+                $result[] = [
+                    't' => $timestump,
+                    'name' => $file_name,
+                    'full_path' => $records_path.'/'.$file_name
+                ];
+            }
+        }
         return $result;
     }
 }
