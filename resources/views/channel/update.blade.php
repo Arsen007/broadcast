@@ -1,5 +1,5 @@
 @extends('template')
-@section('title', 'Update Channel - ')
+@section('title', 'Update Channel - '.$channel->title)
 @section('content')
 
     <div class="col-lg-12">
