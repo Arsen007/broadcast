@@ -66,7 +66,7 @@
         <h3>Records</h3>
         @foreach ($records as $record)
             <div class="col-md-3 portfolio-item">
-                <a href="{{url('video/'.$channel->slug.'/'.$record['name'])}}"><img class="img-responsive" src="/img/tv.png"></a>
+                <a href="{{url('video/'.$channel->slug.'/'.$record['name'])}}"><img class="img-responsive" src="/img/video_file.png"></a>
                 <h3><a href="{{url('video/'.$channel->slug.'/'.$record['name'])}}">{{date('m-d-y H_i_s',$record['t'])}}</a></h3>
             </div>
         @endforeach
