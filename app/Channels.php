@@ -71,30 +71,19 @@ application %s{
         $channel_records_path = $_ENV['CHANNEL_RECORDS_PATH'];
         $result = [];
         $last_file_names = [];
-        $i = 0;
         foreach($channels as $channel){
-            $files = scandir($channel_records_path.$channel->key);
-            foreach($files as $key => $file_name){
-                if($file_name == '.' || $file_name == '..'){
-                    unset($files[$key]);
+            $path = Channels::getChannelRecordsPath($channel->slug);
+            if(file_exists($path.'/'.'.flv')){
+                $filetime = filemtime($path.'/'.'.flv');
+                if((time() - $filetime) < 5){
+                    $result[$channel->id] = true;
+                }else{
+                    $result[$channel->id] = false;
                 }
-            }
-            if(!empty($files)){
-                $last_file_names[$i] = end($files);
             }else{
-                $last_file_names[$i] = false;
-            }
-            $i++;
-        }
-        foreach($last_file_names as $key => $file_name){
-            if(strlen($file_name) > 0){
-                $result[$channels->get($key)->id] = (time() - filemtime($channel_records_path.$channels->get($key)->key.'/'.$file_name)) < 5;
-            }else{
-                $result[$channels->get($key)->id] = false;
+                $result[$channel->id] = false;
             }
         }
-
-
         return $result;
     }
 
