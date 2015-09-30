@@ -55,8 +55,6 @@
 
     <div class="col-lg-12">
         <a href="{{url('channel/watch/'.$channel->slug)}}" class="btn btn-default">Back to channel</a>
-        <a href="{{url('channel/update/'.$channel->slug)}}" class="btn btn-default">Update</a>
-        <a href="{{url('channel/delete/'.$channel->id)}}" class="btn btn-default">Delete</a>
     </div>
     <div class="col-lg-12">
         <div id="container" class="col-lg-7">Loading the player ...</div>
