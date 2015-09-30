@@ -96,4 +96,19 @@ class Channel extends Controller
         $statuses = Channels::getLiveStatuses();
         return json_encode($statuses);
     }
+
+
+    // cron job
+    public function renameRecordedVideos(){
+        $channels = Channels::all();
+        foreach($channels as $channel){
+            $path = Channels::getChannelRecordsPath($channel->slug);
+            if(file_exists($path.'/'.'.flv')){
+                $filetime = filemtime($path.'/'.'.flv');
+                if((time() - $filetime) > 10){
+                    rename($path.'/'.'.flv',$path.'/'.$filetime.'.flv');
+                }
+            }
+        }
+    }
 }

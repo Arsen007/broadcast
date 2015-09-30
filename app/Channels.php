@@ -24,7 +24,7 @@ class Channels extends Model
 application %s{
 ", $key);
         $config_template .= sprintf("   live on;
-    record_unique on;
+    #record_unique on;
     record all;
     record_path /tmp/broadcast_channels/%s;
     play /tmp/broadcast_channels/%s;
